@@ -135,7 +135,7 @@ def main(api):
             train_loader_2 = torch.utils.data.DataLoader(
                 train_data, batch_size=8, shuffle=True, num_workers=2
             )
-            with open("NasBench201/data/[NB201][CIFAR-10]_data.p", "rb") as file: 
+            with open("NasBench201/data/NB201_CIFAR-10_data.p", "rb") as file: 
                 data = pickle.load(file) 
             data_info = data["200"]
 
@@ -155,7 +155,7 @@ def main(api):
                 train_data, batch_size=8, shuffle=True, num_workers=0
             )
             # load data info  
-            with open("NasBench201/data/[NB201][CIFAR-100]_data.p", "rb") as file: 
+            with open("NasBench201/data/NB201_CIFAR-100_data.p", "rb") as file: 
                 data = pickle.load(file) 
             data_info = data["200"]
 
@@ -172,7 +172,7 @@ def main(api):
             train_loader_2 = torch.utils.data.DataLoader(
                 train_data, batch_size=8, shuffle=True, num_workers=2
             )
-            with open("NasBench201/data/[NB201][ImageNet16-120]_data.p", "rb") as file: 
+            with open("NasBench201/data/NB201_ImageNet16-120_data.p", "rb") as file: 
                 data = pickle.load(file) 
             data_info = data["200"]
         else:

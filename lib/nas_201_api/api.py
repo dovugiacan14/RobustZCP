@@ -57,10 +57,10 @@ class NASBench201API(object):
           # First try with weights_only=True and safe_globals
           import torch.serialization
           with torch.serialization.safe_globals(['numpy.core.multiarray.scalar']):
-              file_path_or_dict = torch.load(file_path_or_dict, map_location='cpu')
+              file_path_or_dict = torch.load(file_path_or_dict, map_location='cuda')
       except Exception as e:
           # If that fails, try with weights_only=False (only if you trust the source)
-          file_path_or_dict = torch.load(file_path_or_dict, map_location='cpu', weights_only=False)
+          file_path_or_dict = torch.load(file_path_or_dict, map_location='cuda', weights_only=False)
     elif isinstance(file_path_or_dict, dict):
       file_path_or_dict = copy.deepcopy( file_path_or_dict )
     else: raise ValueError('invalid type : {:} not in [str, dict]'.format(type(file_path_or_dict)))
