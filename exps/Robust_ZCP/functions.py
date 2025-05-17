@@ -248,7 +248,7 @@ def procedure(
         # forward
         logits = network(inputs)
         if isinstance(logits, (tuple, list)):
-            logits = logits[0]
+            logits = logits[1]
         loss = criterion(logits, targets)
         # backward
         # print(int(targets[0].data))
