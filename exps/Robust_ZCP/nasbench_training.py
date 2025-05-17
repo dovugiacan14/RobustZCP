@@ -73,14 +73,14 @@ def data_transform_cifar10_train():
             transforms.RandomCrop(32, padding=4),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
-            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+            # transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
         ]
     )
 
     valid_transform = transforms.Compose(
         [
             transforms.ToTensor(),
-            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+            # transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
         ]
     )
     return train_transform, valid_transform
@@ -129,7 +129,8 @@ def main(api):
     datasets = ["cifar10", "cifar100", "ImageNet16-120"]
     n_archs = 15625
     batch_size = 200
-    output_folder = "/content/drive/MyDrive/output"
+    output_folder = "/content/drive/MyDrive/RosNasBenchmark/RobustZCP"
+    # output_folder = "Claim_Data/"
 
     # Ensure output folder exists
     os.makedirs(output_folder, exist_ok=True)
@@ -147,12 +148,14 @@ def main(api):
             train_loader_2 = torch.utils.data.DataLoader(
                 train_data, batch_size=8, shuffle=True, num_workers=2
             )
-            with open("/content/drive/MyDrive/RosNasBenchmark/NASBench201/[CIFAR-10]_data.p", "rb") as file: 
+            # with open("/content/drive/MyDrive/RosNasBenchmark/NASBench201/[CIFAR-10]_data.p", "rb") as file: 
+            with open("NasBench201/data/NB201_CIFAR-10_data.p", "rb") as file: 
                 data = pickle.load(file) 
             data_info = data["200"]
 
             # load robust scores  
-            with open("/content/drive/MyDrive/RosNasBenchmark/Robustness_Score_Data/cifar10.json", "r") as file: 
+            # with open("/content/drive/MyDrive/RosNasBenchmark/Robustness_Score_Data/cifar10.json", "r") as file: 
+            with open("Robustness_Score/cifar10.json") as file: 
                 robust_scores_pre = json.load(file) 
             
         elif dataset == "cifar100":
@@ -274,7 +277,8 @@ def main(api):
     logging.info(f">>> Saved all summary to {final_file}\n")
 
 if __name__ == "__main__":
-    weight_path = "/content/drive/MyDrive/RosNasBenchmark/weights/NAS-Bench-201-v1_1-096897.pth"
+    # weight_path = "/content/drive/MyDrive/RosNasBenchmark/weights/NAS-Bench-201-v1_1-096897.pth"
+    weight_path = "weights/NAS-Bench-201-v1_1-096897.pth"
     api = API(weight_path, verbose=False)
     main(api)
     api.close()

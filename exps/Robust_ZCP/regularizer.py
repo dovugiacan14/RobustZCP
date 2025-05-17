@@ -33,7 +33,7 @@ class loss_cure():
         inputs.requires_grad_()
         outputs = self.net.eval()(inputs)
         if isinstance(outputs, tuple):
-            outputs = outputs[0]
+            outputs = outputs[1]
         loss_z = self.criterion(outputs, targets)
 
         loss_z.backward() #torch.ones(targets.size(), dtype=torch.float).to(self.device)
@@ -57,10 +57,10 @@ class loss_cure():
         inputs.requires_grad_()
         outputs_pos = self.net.eval()(inputs + z)
         if isinstance(outputs_pos, tuple):
-            outputs_pos = outputs_pos[0]
+            outputs_pos = outputs_pos[1]
         outputs_orig = self.net.eval()(inputs)
         if isinstance(outputs_orig, tuple):
-            outputs_orig = outputs_orig[0]
+            outputs_orig = outputs_orig[1]
 
         loss_pos = self.criterion(outputs_pos, targets)
         loss_orig = self.criterion(outputs_orig, targets)
