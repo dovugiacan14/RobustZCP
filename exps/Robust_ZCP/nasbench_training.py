@@ -91,14 +91,14 @@ def data_transform_cifar100_train():
             transforms.RandomCrop(32, padding=4),
             transforms.RandomHorizontalFlip(),  
             transforms.ToTensor(),
-            transforms.Normalize((0.5071, 0.4867, 0.4304), (0.2675, 0.2565, 0.2761)),
+            #transforms.Normalize((0.5071, 0.4867, 0.4304), (0.2675, 0.2565, 0.2761)),
         ]
     )
 
     valid_transform = transforms.Compose(
         [
             transforms.ToTensor(),
-            transforms.Normalize((0.5071, 0.4867, 0.4304), (0.2675, 0.2565, 0.2761)),
+            # transforms.Normalize((0.5071, 0.4867, 0.4304), (0.2675, 0.2565, 0.2761)),
         ]
     )
     return train_transform, valid_transform
@@ -126,7 +126,8 @@ def data_transform_imagenet_train():
 def main(api):
     set_seed(2024)
     summary_stats = defaultdict(list)
-    datasets = ["cifar10", "cifar100", "ImageNet16-120"]
+    # datasets = ["cifar10", "cifar100", "ImageNet16-120"]
+    datasets = ["cifar100"]
     n_archs = 15625
     batch_size = 200
     output_folder = "/content/drive/MyDrive/RosNasBenchmark/RobustZCP"
