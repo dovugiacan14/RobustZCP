@@ -127,7 +127,7 @@ def main(api):
     set_seed(2024)
     summary_stats = defaultdict(list)
     # datasets = ["cifar10", "cifar100", "ImageNet16-120"]
-    datasets = ["cifar100"]
+    datasets = ["ImageNet16-120"]
     n_archs = 15625
     batch_size = 200
     output_folder = "/content/drive/MyDrive/RosNasBenchmark/RobustZCP"
@@ -180,8 +180,9 @@ def main(api):
 
         elif dataset == "ImageNet16-120":
             train_transform, _ = data_transform_imagenet_train()
-            train_data = dset.ImageNet(
-                root="./data", train=True, download=True, transform=train_transform
+            train_data = dset.ImageFolder(
+                root= "./ILSVRC2012_img_val",
+                transform= train_transform
             )
             train_loader_1 = torch.utils.data.DataLoader(
                 train_data, batch_size=1, shuffle=True, num_workers=2
@@ -280,6 +281,7 @@ def main(api):
 if __name__ == "__main__":
     # weight_path = "/content/drive/MyDrive/RosNasBenchmark/weights/NAS-Bench-201-v1_1-096897.pth"
     weight_path = "weights/NAS-Bench-201-v1_1-096897.pth"
-    api = API(weight_path, verbose=False)
+    # api = API(weight_path, verbose=False)
+    api = 0
     main(api)
     api.close()
