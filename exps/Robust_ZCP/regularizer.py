@@ -34,13 +34,12 @@ class loss_cure():
         outputs = self.net.eval()(inputs)
         if isinstance(outputs, tuple):
             outputs = outputs[1]
-        loss_z = self.criterion(outputs, targets)
-
+        
         print("Target values:", targets)
         print("Target shape:", targets.shape)
         print("Max target:", targets.max().item())
         print("Min target:", targets.min().item())
-
+        loss_z = self.criterion(outputs, targets)
         loss_z.backward() #torch.ones(targets.size(), dtype=torch.float).to(self.device)
         grad = inputs.grad.data + 0.0
         norm_grad = grad.norm().item()
