@@ -109,7 +109,7 @@ def data_transform_imagenet_train():
             transforms.RandomResizedCrop(224),
             transforms.RandomHorizontalFlip(),  
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            # transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ]
     )
 
@@ -118,7 +118,7 @@ def data_transform_imagenet_train():
             transforms.Resize(256),
             transforms.CenterCrop(224),
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            # transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ]
     )
     return train_transform, valid_transform
@@ -181,7 +181,7 @@ def main(api):
         elif dataset == "ImageNet16-120":
             train_transform, _ = data_transform_imagenet_train()
             train_data = dset.ImageFolder(
-                root= "./ILSVRC2012_img_val",
+                root= "data_imagenet",
                 transform= train_transform
             )
             train_loader_1 = torch.utils.data.DataLoader(
@@ -190,11 +190,11 @@ def main(api):
             train_loader_2 = torch.utils.data.DataLoader(
                 train_data, batch_size=8, shuffle=True, num_workers=2
             )
-            with open("/content/drive/MyDrive/RosNasBenchmark/NASBench201/[ImageNet16-120]_data.p", "rb") as file: 
+            with open("NasBench201/data/NB201_ImageNet16-120_data.p", "rb") as file: 
                 data = pickle.load(file) 
             data_info = data["200"]
 
-            with open("/content/drive/MyDrive/RosNasBenchmark/Robustness_Score_Data/imagenet.json", "r") as file: 
+            with open("Robustness_Score/imagenet.json", "r") as file: 
                     robust_scores_pre = json.load(file) 
         else:
             raise ValueError(f"Dataset {dataset} not supported") 
@@ -281,7 +281,7 @@ def main(api):
 if __name__ == "__main__":
     # weight_path = "/content/drive/MyDrive/RosNasBenchmark/weights/NAS-Bench-201-v1_1-096897.pth"
     weight_path = "weights/NAS-Bench-201-v1_1-096897.pth"
-    # api = API(weight_path, verbose=False)
-    api = 0
+    api = API(weight_path, verbose=False)
+    # api = 0
     main(api)
     api.close()

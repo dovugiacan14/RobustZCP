@@ -35,10 +35,6 @@ class loss_cure():
         if isinstance(outputs, tuple):
             outputs = outputs[1]
         
-        print("Target values:", targets)
-        print("Target shape:", targets.shape)
-        print("Max target:", targets.max().item())
-        print("Min target:", targets.min().item())
         loss_z = self.criterion(outputs, targets)
         loss_z.backward() #torch.ones(targets.size(), dtype=torch.float).to(self.device)
         grad = inputs.grad.data + 0.0
